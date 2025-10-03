@@ -1,11 +1,4 @@
 <?php
-
-/**
- * Cinco dados - cinco-dados.php
- *
- * @author Alberto López
- *
- */
 define('NUMDADOS', 5);
 
 // Caracteres UTF8( de dados 1 a 6)
@@ -15,10 +8,6 @@ $tcharDados = [
   5 => "&#9860;",  6 => "&#9861;"
 ];
 
-
-
-/* Funciones auxiliares */
-
 /**
  *  Genera un array con valores de dados 1..6
  * @param int $numdados - tamaño de array generado
@@ -26,8 +15,11 @@ $tcharDados = [
  */
 function generarDados(int $numdados): array
 {
-  
-  return [];
+  $dados = [];
+  for ($i = 0; $i < $numdados; $i++) {
+    $dados[] = rand(1, 6);
+  }
+  return $dados;
 }
 
 /**
@@ -36,9 +28,24 @@ function generarDados(int $numdados): array
  * @param array $tdados
  * @return int
  */
-function calcularPuntos( array $tdados): int
+function calcularPuntos(array $tdados): int
 {
-   return 0;
+  if (count($tdados) <= 2) {
+    return 0;
+  }
+  
+  // Hacer una copia para no modificar el array original
+  $copiaDados = $tdados;
+  
+  // Ordenar el array
+  sort($copiaDados);
+  
+  // Eliminar el valor más bajo (primero) y el más alto (último)
+  array_shift($copiaDados); // elimina el primero
+  array_pop($copiaDados);   // elimina el último
+  
+  // Sumar los valores restantes
+  return array_sum($copiaDados);
 }
 
 /**
@@ -49,23 +56,28 @@ function calcularPuntos( array $tdados): int
  */
 function generarMensajeGanador(int $puntos1, int $puntos2): string
 {
-  
-  return " SIN RESOLVER ";
+  if ($puntos1 > $puntos2) {
+    return "¡Gana el Jugador 1!";
+  } elseif ($puntos2 > $puntos1) {
+    return "¡Gana el Jugador 2!";
+  } else {
+    return "¡Empate!";
+  }
 }
 
-// Función que genera un mensaje para múltiples ganadores
-// Recibe un lista de parámetros variables
 /**
  *   Genera el hmtl con la imagne asociado a el valor del dado
  * @param array $tdados - valores de los dados
  * @return string - cadena html donde se incluye el caracter asociado a valor de cada dado
  */
-function generarImagenes( array $tdados): string
+function generarImagenes(array $tdados): string
 {
   $msg = "";
   global $tcharDados;
 
-   $msg .= "<span style='font-size:100px;'>" . $tcharDados[1] . "</span>";
+  foreach ($tdados as $valor) {
+    $msg .= "<span style='font-size:100px;'>" . $tcharDados[$valor] . "</span>";
+  }
   
   return $msg;
 }
@@ -77,8 +89,7 @@ $dadosJugador2 = generarDados(NUMDADOS);
 $puntosJugado1 = calcularPuntos($dadosJugador1);
 $puntosJugado2 = calcularPuntos($dadosJugador2);
 
-
-$msgGanador    = generarMensajeGanador($puntosJugado1, $puntosJugado2);
+$msgGanador = generarMensajeGanador($puntosJugado1, $puntosJugado2);
 
 ?>
 <!DOCTYPE html>
@@ -98,14 +109,12 @@ $msgGanador    = generarMensajeGanador($puntosJugado1, $puntosJugado2);
 
   <p>Actualice la página para mostrar una nueva tirada.</p>
 
-
   <table>
     <tbody>
       <tr>
         <th>Jugador 1</th>
         <td style="padding: 10px; background-color: red;">
           <?= generarImagenes($dadosJugador1); ?>
-
         </td>
         <th> <?= $puntosJugado1; ?> puntos</th>
       </tr>
@@ -113,7 +122,6 @@ $msgGanador    = generarMensajeGanador($puntosJugado1, $puntosJugado2);
         <th>Jugador 2</th>
         <td style="padding: 10px; background-color: blue;">
           <?= generarImagenes($dadosJugador2); ?>
-
         </td>
         <th> <?= $puntosJugado2 ?> puntos</th>
       </tr>
@@ -123,10 +131,7 @@ $msgGanador    = generarMensajeGanador($puntosJugado1, $puntosJugado2);
       </tr>
     </tbody>
   </table>
-
-  <footer>
-    <p><u>By Alberto López</u></p>
-  </footer>
+  
 </body>
 
 </html>
