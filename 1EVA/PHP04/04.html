@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio4 - Formulario Mejorado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h4 {
+            color: #4a5568;
+            margin: 20px 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        h5 {
+            color: #718096;
+            margin: 15px 0 8px 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #2d3748;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .radio-item,
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+            margin: 25px 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        input[type="reset"],
+        input[type="submit"] {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        input[type="reset"] {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+
+        input[type="reset"]:hover {
+            background-color: #cbd5e0;
+            transform: translateY(-2px);
+        }
+
+        input[type="submit"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        select[multiple] {
+            height: 120px;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            input[type="reset"],
+            input[type="submit"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form action="04.php" method="get">
+            <h4>Campos de texto</h4>
+            <div class="form-group">
+                <label for="Nombre">Nombre</label>
+                <input type="text" name="Nombre" id="Nombre" placeholder="Introduce tu nombre">
+            </div>
+            
+            <div class="form-group">
+                <label for="Contraseña">Contraseña</label>
+                <input type="password" name="Contraseña" id="Contraseña" placeholder="Introduce tu contraseña">
+            </div>
+
+            <hr>
+
+            <h4>Radio - Selecciona un color</h4>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" name="color" id="Rojo" value="rojo">
+                    <label for="Rojo">Rojo</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" name="color" id="Naranja" value="naranja">
+                    <label for="Naranja">Naranja</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" name="color" id="Verde" value="verde">
+                    <label for="Verde">Verde</label>
+                </div>
+            </div>
+
+            <hr>
+
+            <h4>Checkbox:</h4>
+            <div class="checkbox-item">
+                <input type="checkbox" name="Publicidad" id="Publicidad" value="si">
+                <label for="Publicidad">Quiero recibir Publicidad</label>
+            </div>
+            
+            <h4>Multi checkbox</h4>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" name="Idiomas[]" id="Frances" value="Francés">
+                    <label for="Frances">Francés</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" name="Idiomas[]" id="Ingles" value="Inglés">
+                    <label for="Ingles">Inglés</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" name="Idiomas[]" id="Aleman" value="Alemán">
+                    <label for="Aleman">Alemán</label>
+                </div>
+            </div>
+
+            <hr>
+
+            <h4>Select</h4>
+            <h5>Simple:</h5>
+            <div class="form-group">
+                <label for="años">Año de finalización de estudios</label>
+                <select name="años" id="años">
+                    <option value="">Selecciona un año</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                </select>
+            </div>
+
+            <h5>Multiple:</h5>
+            <div class="form-group">
+                <label for="Ciudades">Ciudades:</label>
+                <select name="Ciudades[]" id="Ciudades" multiple>
+                    <option name="Madrid" value="28">Madrid</option>
+                    <option name="Gerona" value="17">Gerona</option>
+                    <option name="Sevilla" value="41">Sevilla</option>
+                </select>
+            </div>
+
+            <hr>
+
+            <h4>Textarea:</h4>
+            <div class="form-group">
+                <label for="comentario">Escriba sus comentarios:</label>
+                <textarea name="comentario" id="comentario" placeholder="Escribe tus comentarios aquí..."></textarea>
+            </div>
+
+            <hr>
+
+            <h4>Botones:</h4>
+            <div class="button-group">
+                <input type="reset" value="Resetar el formulario">
+                <input type="submit" value="Enviar formulario al servidor">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
